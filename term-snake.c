@@ -26,6 +26,14 @@ void initLevel(char level[ROWS][COLS]) {
 
 }
 
+void getInput() {
+	// do stuff
+}
+
+void updateLevel(char level[ROWS][COLS]) {
+	// do stuff
+}
+
 void drawLevel(char level[ROWS][COLS]) {
 
 	int currentRow;
@@ -42,10 +50,18 @@ void drawLevel(char level[ROWS][COLS]) {
 int main() {
 
 	char level[ROWS][COLS];
-	int snakeLength;
+	int snakeLength = 0;
+	int runGame = 1;
 
 	initLevel(level);
-	drawLevel(level);
+
+	// game loop
+	while (runGame) {
+		getInput();
+		updateLevel(level);
+		drawLevel(level);
+		runGame = 0; //DEBUG
+	}
 
 	return EXIT_SUCCESS;
 
