@@ -6,36 +6,46 @@
 #define ROWS 40
 #define COLS 20
 
-int main() {
+void initLevel(char level[ROWS][COLS]) {
 
-	// set up data
-	char level[ROWS][COLS];
-	int snakeLength;
-	
-	int i;
-	int j;
-	for (i=0; i<COLS; i++) {
-		for (j=0; j<ROWS; j++) {
-			// init "empty level" with spaces
-			level[j][i] = ' ';
+	// init level with spaces
+	int currentRow;
+	int currentCol;
+	for (currentCol=0; currentCol<COLS; currentCol++) {
+		for (currentRow=0; currentRow<ROWS; currentRow++) {
+			level[currentRow][currentCol] = ' ';
 		}
 	}
 
 	// calculate snake starting point
 	int xPos = ROWS / 2;
 	int yPos = COLS / 2;
+
 	// position snake head
 	level[xPos][yPos] = SNAKE_HEAD;
+
+}
+
+void drawLevel(char level[ROWS][COLS]) {
 
 	int currentRow;
 	int currentCol;
 	for (currentCol=0; currentCol<COLS; currentCol++) {
 		for (currentRow=0; currentRow<ROWS; currentRow++) {
-			// draw current level
 			printf("%c", level[currentRow][currentCol]);
 		}
 		printf("\n");
 	}
+
+}
+
+int main() {
+
+	char level[ROWS][COLS];
+	int snakeLength;
+
+	initLevel(level);
+	drawLevel(level);
 
 	return EXIT_SUCCESS;
 
