@@ -1,3 +1,13 @@
+/*
+ * term-snake
+ * A simple terminal snake program.
+ *
+ * (c) 2015 indivisualist
+ * Released under the GNU General Public License.
+ * See LICENSE for details.
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <termios.h>
