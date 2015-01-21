@@ -23,7 +23,7 @@ int getch(void) {
 }
 
 // set up the level
-void initLevel(char level[ROWS][COLS]) {
+void initLevel(char level[ROWS][COLS], int snakePos[1][2]) {
 
 	// init level with spaces
 	int currentRow;
@@ -35,16 +35,13 @@ void initLevel(char level[ROWS][COLS]) {
 	}
 
 	// calculate snake starting point
-	int xPos = ROWS / 2;
-	int yPos = COLS / 2;
-
-	// position snake head
-	level[xPos][yPos] = SNAKE_HEAD;
+	snakePos[0][0] = ROWS / 2;
+	snakePos[0][1] = COLS / 2;
 
 }
 
-// read from keyboard and act accordingly
-void getInput(int *runGame) {
+// read from keyboard and update the game
+void updateLevel(char level[ROWS][COLS], int *runGame) {
 
 	char keyPress = getch();
 	switch (keyPress) {
@@ -61,7 +58,7 @@ void getInput(int *runGame) {
 			printf("right");
 			break;
 		case 'q':
-			printf("exiting game!");
+			printf("exiting game");
 			*runGame = 0;
 			break;
 		default:
@@ -70,20 +67,25 @@ void getInput(int *runGame) {
 	//putchar(keyPress);
 }
 
-// make interesting stuff with the level
-void updateLevel(char level[ROWS][COLS]) {
-	// do stuff
-}
-
 // draw the updated level
-void drawLevel(char level[ROWS][COLS]) {
+void drawLevel(char level[ROWS][COLS], int snakePos[1][2]) {
 
 	int currentRow;
 	int currentCol;
 	for (currentCol=0; currentCol<COLS; currentCol++) {
 		for (currentRow=0; currentRow<ROWS; currentRow++) {
-			printf("%c", level[currentRow][currentCol]);
+			
+			if (snakePos[0][0] == currentRow && snakePos[0][1] == currentCol) {
+				// current snake head position
+				printf("%c", SNAKE_HEAD);
+			}
+			else {
+				// draw the level
+				printf("%c", level[currentRow][currentCol]);
+			}
+			
 		}
+		// new line after row
 		printf("\n");
 	}
 
@@ -92,16 +94,16 @@ void drawLevel(char level[ROWS][COLS]) {
 int main() {
 
 	char level[ROWS][COLS];
+	int snakePos[1][2] = { 0, 0 };
 	int snakeLength = 0;
 	int runGame = 1;
 
-	initLevel(level);
+	initLevel(level, snakePos);
 
 	// game loop
 	while (runGame) {
-		getInput(&runGame);
-		updateLevel(level);
-		drawLevel(level);
+		updateLevel(level, &runGame);
+		drawLevel(level, snakePos);
 	}
 
 	return EXIT_SUCCESS;
